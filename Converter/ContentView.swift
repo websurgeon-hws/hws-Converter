@@ -6,12 +6,24 @@ import SwiftUI
 
 struct ContentView: View {
     private let lengthOptions = ["meters", "km", "feet", "yards", "miles"]
+    private let convertionFromMeters: [Double] = [1, 0.001, 3.28084, 1.09361, 0.000621371]
+
     @State private var inputSelected = 0
     @State private var outputSelected = 0
     @State private var inputValueString = ""
+    
+    private var inputValue: Double {
+        return Double(inputValueString) ?? 0
+    }
+
+    private var outputValue: Double {
+        let inputMeters = inputValue / convertionFromMeters[inputSelected]
+        
+        return inputMeters * convertionFromMeters[outputSelected]
+    }
 
     private var outputValueString: String {
-        return "123"
+        return "\(outputValue)"
     }
 
     var body: some View {
